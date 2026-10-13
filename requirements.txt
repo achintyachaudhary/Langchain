@@ -27,3 +27,5 @@ scikit-learn
 
 # groq
 langchain-groq
+
+torch
