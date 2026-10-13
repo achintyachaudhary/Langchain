@@ -1,0 +1,28 @@
+# Core LangChain framework for building LLM apps, chains, agents, and prompt workflows.
+langchain
+langchain-core
+
+# OpenAI models and API access via LangChain + the official OpenAI Python SDK.
+langchain-openai
+openai
+
+# Anthropic Claude integration for LangChain-based chat and reasoning workflows.
+langchain-anthropic
+
+# Google Gemini integration for LangChain + the Google Generative AI SDK.
+langchain-google-genai
+google-generativeai
+
+# Hugging Face model integration for transformers, pipelines, and model access.
+langchain-huggingface
+transformers
+huggingface-hub
+
+# Loads environment variables from .env files (API keys, model configs, secrets).
+python-dotenv
+
+# Numerical and ML utilities for data prep, embeddings, and model pipelines.
+numpy
+scikit-learn
+
+langchain-groq
