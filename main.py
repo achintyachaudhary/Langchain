@@ -6,6 +6,7 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from pypdf import PdfReader
 
+from ChatModels.groq import get_llm_chat_result
 from EmbeddedModels.local_embed_model import embed_documents
 from Indexes.splitter import splitter_user_input_file
 from VectorDb.connect import QdrantConnect
@@ -26,7 +27,8 @@ async def echo_query(query: str = Form(...)) -> dict:
     # embedded_docs = embed_documents([query])
     qc = QdrantConnect()
     res = qc.query_db(collection = "hr_policy", query = query)
-    return {"query": res.payload.get("text")}
+    res = get_llm_chat_result(query=query, embeddings=res.payload.get("text"))
+    return {"query": res.content}
 
 
 @app.post("/upload")

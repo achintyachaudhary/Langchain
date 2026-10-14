@@ -1,9 +1,17 @@
 from dotenv import load_dotenv
 
 from langchain_groq import ChatGroq
+from langchain_core.prompts import ChatPromptTemplate
 
 load_dotenv()
 
-model = ChatGroq(model="qwen/qwen3.8-27b", temperature=0, max_tokens=8)
-result = model.invoke("What is the date today?")
-# print(result)
+
+
+def get_llm_chat_result(query, embeddings, model = "qwen/qwen3.8-27b"):
+    model = ChatGroq(model="qwen/qwen3.8-27b")
+    prompt = {
+        "Company Context": f"{embeddings}",
+        "user": f"{query}"
+    }
+    res = model.invoke(str(prompt))
+    return res
