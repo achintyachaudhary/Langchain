@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document Query</title>
+  </head>
+  <body>
+    <h1>Document Query</h1>
+    <form id="upload-form">
+      <label>
+        PDF or DOCX document
+        <input type="file" name="document" accept=".pdf,.docx" required />
+      </label>
+      <br />
+      <label>
+        Your query
+        <textarea name="query" required></textarea>
+      </label>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+    <p id="status" role="status"></p>
+    <script>
+      const form = document.querySelector("#upload-form");
+      const status = document.querySelector("#status");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        status.textContent = "Submitting...";
+
+        try {
+          const response = await fetch("/upload", {
+            method: "POST",
+            body: new FormData(form),
+          });
+          const result = await response.json();
+          status.textContent = response.ok ? result.message : result.detail;
+        } catch (error) {
+          status.textContent = "Could not reach the API.";
+        }
+      });
+    </script>
+  </body>
+</html>

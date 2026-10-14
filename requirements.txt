@@ -1,31 +1,29 @@
-# Core LangChain framework for building LLM apps, chains, agents, and prompt workflows.
+# Core LangChain runtime used to build the app's LLM workflows, chain logic, and prompt orchestration.
 langchain
 langchain-core
+langchain-text-splitters
 
-# OpenAI models and API access via LangChain + the official OpenAI Python SDK.
-langchain-openai
-openai
-
-# Anthropic Claude integration for LangChain-based chat and reasoning workflows.
-langchain-anthropic
-
-# Google Gemini integration for LangChain + the Google Generative AI SDK.
-langchain-google-genai
-google-generativeai
-
-# Hugging Face model integration for transformers, pipelines, and model access.
+# Local Hugging Face models and embeddings used for the project's example chat and embedding pipelines.
 langchain-huggingface
 transformers
+sentence-transformers
 huggingface-hub
+torch
 
-# Loads environment variables from .env files (API keys, model configs, secrets).
-python-dotenv
-
-# Numerical and ML utilities for data prep, embeddings, and model pipelines.
-numpy
-scikit-learn
-
-# groq
+# Optional Groq chat support if you want to swap the local Hugging Face model for a hosted Groq model.
 langchain-groq
 
-torch
+# Loads API keys and environment configuration from a .env file.
+python-dotenv
+
+# FastAPI web app that serves the document upload endpoint and returns responses.
+fastapi
+uvicorn
+python-multipart
+
+# File parsing for PDF and DOCX uploads in the document ingestion API.
+pypdf
+python-docx
+
+# Qdrant vector database client used for semantic search/document retrieval.
+qdrant-client
