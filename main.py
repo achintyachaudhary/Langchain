@@ -19,6 +19,16 @@ async def home() -> FileResponse:
     return FileResponse(Path(__file__).parent / "index.html")
 
 
+@app.post("/query")
+async def echo_query(query: str = Form(...)) -> dict:
+    # vectorise it
+    # call embedding model
+    # embedded_docs = embed_documents([query])
+    qc = QdrantConnect()
+    res = qc.query_db(collection = "hr_policy", query = query)
+    return {"query": res.payload.get("text")}
+
+
 @app.post("/upload")
 async def upload_document(
     query: str = Form(...),

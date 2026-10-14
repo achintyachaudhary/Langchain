@@ -7,6 +7,16 @@
   </head>
   <body>
     <h1>Document Query</h1>
+    <form id="query-form">
+      <label>
+        Your query
+        <textarea name="query" required></textarea>
+      </label>
+      <br />
+      <button type="submit">Send query</button>
+    </form>
+    <p id="query-result" role="status"></p>
+
     <form id="upload-form">
       <label>
         PDF or DOCX document
@@ -22,8 +32,26 @@
     </form>
     <p id="status" role="status"></p>
     <script>
+      const queryForm = document.querySelector("#query-form");
+      const queryResult = document.querySelector("#query-result");
       const form = document.querySelector("#upload-form");
       const status = document.querySelector("#status");
+
+      queryForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        queryResult.textContent = "Sending query...";
+
+        try {
+          const response = await fetch("/query", {
+            method: "POST",
+            body: new FormData(queryForm),
+          });
+          const result = await response.json();
+          queryResult.textContent = response.ok ? result.query : result.detail;
+        } catch (error) {
+          queryResult.textContent = "Could not reach the API.";
+        }
+      });
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();

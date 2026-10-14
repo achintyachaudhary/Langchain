@@ -22,18 +22,10 @@ class QdrantConnect:
             collection_name=collection,
             query=Document(text=query, model=model),
             with_payload=True,
-            limit=5
+            limit=1
         )
 
-        # print results
-        for result in results.points:
-            print(f"Item: {result.payload.get('item_name', 'N/A')}")
-            print(f"Score: {result.score}")
-            print(f"Description: {result.payload['description'][:150]}...")
-            print(f"Price: {result.payload.get('price', 'N/A')}")
-            print("---")
-
-        return results
+        return results.points[0]
 
     def save_db(self, collection, documents):
         # upsert points to collection
