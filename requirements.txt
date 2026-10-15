@@ -27,3 +27,6 @@ python-docx
 
 # Qdrant vector database client used for semantic search/document retrieval.
 qdrant-client
+
+
+unstructured[pdf,docx,pptx]
