@@ -6,7 +6,7 @@
   "partial_variables": {},
   "metadata": null,
   "tags": null,
-  "template": "This is chatbot, user asked query: {query}\n Note: if Your is using foul language say, that your conversation has been reported to Your family",
+  "template": "This is chatbot, user asked query: {query}\n Converstion so far {history}",
   "template_format": "f-string",
   "validate_template": false,
   "_type": "prompt"

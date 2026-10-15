@@ -13,12 +13,12 @@ if __name__ == "__main__":
     prompt = load_prompt(
         "/Users/archaudhary/projects/campusx_langchain/chatbot/bot_query.json"
     )
+    history = []
     model = ChatGroq(model="qwen/qwen3.8-27b")
-    print(prompt, type(prompt), "hi")
     print("Hi, how's your day?. Ask your questions here")
     while True:
-        print("User: ")
-        query = str(input())
+        query = str(input("You: "))
         chain = prompt | model
-        result = chain.invoke({"query": query})
+        result = chain.invoke({"query": query, "history": history})
+        history.append(query)
         print(f"AI: {result.content}")
