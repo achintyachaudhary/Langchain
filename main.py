@@ -9,6 +9,7 @@ from pypdf import PdfReader
 from ChatModels.groq import get_llm_chat_result
 from EmbeddedModels.local_embed_model import embed_documents
 from Indexes.splitter import splitter_user_input_file
+from Prompts.resarcher_prompt import get_researcher_prompt
 from VectorDb.connect import QdrantConnect
 
 app = FastAPI()
@@ -26,7 +27,8 @@ async def echo_query(query: str = Form(...)) -> dict:
     # embedded_docs = embed_documents([query])
     qc = QdrantConnect()
     res = qc.query_db(collection="hr_policy", query=query)
-    res = get_llm_chat_result(query=query, embeddings=res.payload.get("text"))
+    prompt = get_researcher_prompt(prompt=query, context=res.payload.get("text"))
+    res = get_llm_chat_result(prompt)
     return {"query": res.content}
 
 
