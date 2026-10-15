@@ -1,0 +1,13 @@
+{
+  "name": "chat bot template",
+  "input_variables": ["query"],
+  "optional_variables": [],
+  "output_parser": null,
+  "partial_variables": {},
+  "metadata": null,
+  "tags": null,
+  "template": "This is chatbot, user asked query: {query}\n Note: if Your is using foul language say, that your conversation has been reported to Your family",
+  "template_format": "f-string",
+  "validate_template": false,
+  "_type": "prompt"
+}
