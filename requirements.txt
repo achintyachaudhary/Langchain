@@ -32,3 +32,5 @@ qdrant-client
 unstructured[pdf,docx,pptx]
 
 pydantic
+
+langchain-classic
