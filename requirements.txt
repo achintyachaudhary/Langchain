@@ -30,3 +30,5 @@ qdrant-client
 
 
 unstructured[pdf,docx,pptx]
+
+pydantic
