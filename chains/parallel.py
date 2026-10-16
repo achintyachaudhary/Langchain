@@ -1,6 +1,6 @@
 from langchain_classic.output_parsers import PydanticOutputParser
 from langchain_core.prompts import PromptTemplate
-from langchain_core.runnables import RunnableParallel
+from langchain_core.runnables import RunnableLambda, RunnableParallel
 from langchain_groq import ChatGroq
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -45,13 +45,14 @@ quiz_template = PromptTemplate(
     name="quiz_template",
     input_variables=["summary"],
     validate_template=True,
-    template="Can you create quiz questions from below topic - {summary}\n\n{output_description}",
+    template="Can you create 5 quiz questions from below topic - {summary}\n\n{output_description}",
     partial_variables={"output_description": quiz_parser.get_format_instructions()},
 )
 
 
 class ResultTemplate(BaseModel):
-    notes_and_quizes: str
+    notes: list[str]
+    quizeeees: list[str]
 
 
 result_parser = PydanticOutputParser(pydantic_object=ResultTemplate)
@@ -61,7 +62,7 @@ result_template = PromptTemplate(
     name="compile_template",
     input_variables=["notes", "quiz_questions"],
     validate_template=True,
-    template="Below is provided summary and quiz can you merge them both into single file\n Notes - {notes}\n Quiz - {quiz_questions}\n\n {output_description}",
+    template="Below is provided summary and quiz can you merge\n Notes - {notes}\n Quiz - {quiz_questions}\n\n {output_description}",
     partial_variables={"output_description": result_parser.get_format_instructions()},
 )
 model = ChatGroq(model="qwen/qwen3.8-27b")
@@ -77,8 +78,14 @@ chain = (
     topic_template
     | model
     | topic_parser
+    | RunnableLambda(lambda result: {"summary": result.summary})
     | parallel_chain
-    | model
+    | RunnableLambda(
+        lambda result: {
+            "notes": result["notes"].notes,
+            "quiz_questions": result["quiz"].quiz_questions,
+        }
+    )
     | result_template
     | model
     | result_parser
