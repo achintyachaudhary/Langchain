@@ -34,3 +34,5 @@ unstructured[pdf,docx,pptx]
 pydantic
 
 langchain-classic
+
+grandalf
