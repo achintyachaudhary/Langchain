@@ -35,7 +35,11 @@ def to_markdown(elements) -> str:
 
 # load elements from file
 def load_elements(
-    path: str = "/Users/archaudhary/projects/campusx_langchain/assets/Gamma Analytics HR Policy Handbook.docx",
+    path: str = str(
+        Path(__file__).resolve().parents[1]
+        / "assets"
+        / "gamma_analytics_hr_policy_handbook.docx"
+    ),
 ):
     kwargs = {}
     if Path(path).suffix.lower() == ".pdf":
@@ -43,7 +47,10 @@ def load_elements(
     return partition(filename=path, **kwargs)
 
     elem = load_elements()
-    Path("output.md").write_text(to_markdown(elem), encoding="utf-8")
+    output_path = (
+        Path(__file__).resolve().parents[1] / "outputs" / "parsed_document.md"
+    )
+    output_path.write_text(to_markdown(elem), encoding="utf-8")
 
 
 def splitter_user_input_file(text):

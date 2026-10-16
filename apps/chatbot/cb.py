@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from langchain_core.prompts import load_prompt
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
@@ -11,7 +13,7 @@ load_dotenv()
 # template.save("bot_query.json")
 if __name__ == "__main__":
     prompt = load_prompt(
-        "/Users/archaudhary/projects/campusx_langchain/chatbot/bot_query.json"
+        str(Path(__file__).resolve().parent / "bot_query.json")
     )
     history = []
     model = ChatGroq(model="qwen/qwen3.8-27b")

@@ -6,11 +6,11 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from pypdf import PdfReader
 
-from ChatModels.groq import get_llm_chat_result
-from EmbeddedModels.local_embed_model import embed_documents
-from Indexes.splitter import splitter_user_input_file
-from Prompts.resarcher_prompt import get_researcher_prompt
-from VectorDb.connect import QdrantConnect
+from chat_models.groq import get_llm_chat_result
+from embedded_models.local_embed_model import embed_documents
+from indexes.splitter import splitter_user_input_file
+from prompts.researcher_prompt import get_researcher_prompt
+from vector_db.connect import QdrantConnect
 
 app = FastAPI()
 
